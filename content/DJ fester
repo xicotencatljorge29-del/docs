@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DJ FESTER | Cyber-Perreo Neon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@700&family=Roboto:wght@400;700&family=Orbitron:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        /* Variables CSS para una fácil personalización de colores */
+        :root {
+            --neon-magenta: #ff00ff;
+            --neon-cyan: #00ffff;
+            --neon-mint: #98ff98;
+            --dark-bg: #0d0d0d;
+            --font-main: 'Roboto', sans-serif;
+            --font-heading: 'Oswald', sans-serif;
+            --font-tech: 'Orbitron', sans-serif;
+        }
+
+        /* Estilos generales del cuerpo de la página */
+        body {
+            font-family: var(--font-main);
+            background-color: var(--dark-bg);
+            color: #fff;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Fondo de efecto paralaje con gradientes de neón */
+        .parallax-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(255, 0, 255, 0.1) 0%, transparent 50%),
+                        radial-gradient(circle at 50% 100%, rgba(0, 255, 255, 0.1) 0%, transparent 60%);
+            z-index: -1;
+            pointer-events: none;
+            transition: transform 0.1s ease-out;
+        }
+
+        /* Sección principal (hero) de la página */
+        .hero {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: url('https://images.unsplash.com/photo-1549419163-f27357c91350?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D') no-repeat center center/cover;
+            background-attachment: fixed; /* Añadido para un mejor efecto de paralaje */
+            overflow: hidden;
+        }
+
+        /* Contenido del héroe con fondo semitransparente */
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 10px;
+        }
+
+        /* Título principal con efecto "glitch" */
+        .glitch-text {
+            font-family: var(--font-tech);
+            font-size: clamp(2.5em, 8vw, 5em);
+            text-transform: uppercase;
+            color: #fff;
+            position: relative;
+            animation: glitch 1s infinite;
+            text-shadow: 0 0 15px var(--neon-magenta), 0 0 25px var(--neon-cyan);
+            user-select: none;
+        }
+
+        .glitch-text::before, .glitch-text::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--dark-bg);
+            overflow: hidden;
+        }
+
+        .glitch-text::before {
+            left: 2px;
+            text-shadow: -2px 0 var(--neon-magenta);
+            animation: glitch-left 1s infinite;
+        }
+
+        .glitch-text::after {
+            left: -2px;
+            text-shadow: -2px 0 var(--neon-cyan);
+            animation: glitch-right 1s infinite;
+        }
+
+        /* Subtítulo y texto CTA */
+        .subtitle {
+            font-family: var(--font-tech);
+            font-size: 1.5em;
+            color: var(--neon-mint);
+            margin-top: -20px;
+        }
+
+        .cta-text {
+            font-size: 1.2em;
+            margin-top: 20px;
+            color: var(--neon-cyan);
+            animation: pulse 2s infinite;
+        }
+
+        /* Botón de llamada a la acción (CTA) */
+        .cta-button {
+            display: inline-block;
+            margin-top: 30px;
+            padding: 15px 40px;
+            background: linear-gradient(45deg, var(--neon-magenta), var(--neon-cyan));
+            color: #fff;
+            text-transform: uppercase;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid var(--neon-magenta);
+        }
+
+        .cta-button:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px var(--neon-magenta), 0 0 20px var(--neon-cyan);
+        }
+
+        /* Estilos para las secciones de contenido */
+        .section {
+            padding: 80px 20px;
+            text-align: center;
+            max-width: 1200px;
+            margin: auto;
+            position: relative;
+        }
+
+        /* Títulos de las secciones */
+        .section-title {
+            font-family: var(--font-heading);
+            font-size: clamp(2em, 6vw, 3em);
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px var(--neon-mint);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-magenta), var(--neon-cyan));
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Contenedor de la información del DJ */
+        .dj-info-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        /* Imagen del DJ */
+        .dj-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            border: 5px solid var(--neon-magenta);
+            box-shadow: 0 0 20px var(--neon-magenta);
+            transition: transform 0.5s ease-in-out;
+            object-fit: cover;
+        }
+
+        /* Texto descriptivo del DJ */
+        .dj-text {
+            max-width: 700px;
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-top: 0;
+        }
+
+        /* Sección de invitados especiales */
+        .special-guests {
+            background-color: rgba(13, 13, 13, 0.7);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .guest-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+        }
+
+        .guest-card {
+            text-align: center;
+            width: 180px;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--neon-cyan);
+            border-radius: 10px;
+            box-shadow: 0 0 15px var(--neon-cyan);
+            transition: transform 0.3s ease;
+        }
+
+        .guest-card:hover {
+            transform: translateY(-10px) scale(1.05);
+            background-color: rgba(0, 255, 255, 0.1);
+        }
+
+        .guest-card img {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--neon-magenta);
+            box-shadow: 0 0 10px var(--neon-magenta);
+        }
+
+        .guest-card h3 {
+            font-family: var(--font-tech);
+            font-size: 1.2em;
+            margin: 15px 0 5px;
+            color: var(--neon-mint);
+        }
+
+        .guest-card p {
+            font-size: 0.9em;
+            color: #ccc;
+        }
+        
+        /* ESTILOS DEL CARRUSEL */
+        .carousel-container {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 0 30px var(--neon-cyan);
+        }
+
+        .carousel-slide {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+            position: relative;
+        }
+
+        .carousel-item {
+            position: relative;
+            min-width: 100%;
+            flex-shrink: 0;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .carousel-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            background-color: rgba(0, 0, 0, 0.6);
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-family: var(--font-tech);
+            font-size: 1.2em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .carousel-button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            cursor: pointer;
+            font-size: 1.5em;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .prev-button {
+            left: 10px;
+        }
+
+        .next-button {
+            right: 10px;
+        }
+
+        /* FIN DE ESTILOS DEL CARRUSEL */
+        
+        /* ESTILOS DEL REPRODUCTOR DE VIDEO */
+        .video-container {
+            max-width: 800px;
+            margin: 40px auto;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 0 30px var(--neon-magenta);
+            position: relative;
+            background-color: #000;
+        }
+        
+        .video-container video {
+            width: 100%;
+            height: auto;
+        }
+
+        /* FIN DE ESTILOS DEL REPRODUCTOR DE VIDEO */
+
+        /* Sección de contacto y formulario */
+        .contact-form {
+            max-width: 600px;
+            margin: 40px auto;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: calc(100% - 30px);
+            padding: 15px;
+            border: 2px solid var(--neon-magenta);
+            background-color: rgba(0, 0, 0, 0.5);
+            color: #fff;
+            border-radius: 8px;
+            font-family: var(--font-main);
+            font-size: 1em;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: var(--neon-cyan);
+            box-shadow: 0 0 10px var(--neon-cyan);
+        }
+
+        .contact-form button {
+            padding: 15px 30px;
+            background: linear-gradient(45deg, var(--neon-magenta), var(--neon-cyan));
+            color: #fff;
+            border: none;
+            border-radius: 50px;
+            text-transform: uppercase;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px var(--neon-magenta), 0 0 20px var(--neon-cyan);
+        }
+
+        /* Estilos del pie de página */
+        footer {
+            padding: 20px;
+            text-align: center;
+            background-color: #000;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        .social-icons {
+            margin-top: 20px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: var(--neon-cyan);
+            transform: scale(1.2);
+        }
+
+        /* Animaciones para el efecto "glitch" y "pulse" */
+        @keyframes glitch {
+            0% {
+                transform: translate(0);
+            }
+            20% {
+                transform: translate(-3px, 3px);
+            }
+            40% {
+                transform: translate(-3px, -3px);
+            }
+            60% {
+                transform: translate(3px, 3px);
+            }
+            80% {
+                transform: translate(3px, -3px);
+            }
+            100% {
+                transform: translate(0);
+            }
+        }
+
+        @keyframes glitch-left {
+            0% {
+                transform: skewX(-25deg);
+            }
+            25% {
+                transform: skewX(15deg);
+            }
+            50% {
+                transform: skewX(-25deg);
+            }
+            75% {
+                transform: skewX(15deg);
+            }
+            100% {
+                transform: skewX(0);
+            }
+        }
+
+        @keyframes glitch-right {
+            0% {
+                transform: skewX(25deg);
+            }
+            25% {
+                transform: skewX(-15deg);
+            }
+            50% {
+                transform: skewX(25deg);
+            }
+            75% {
+                transform: skewX(-15deg);
+            }
+            100% {
+                transform: skewX(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                text-shadow: 0 0 5px var(--neon-cyan);
+            }
+            50% {
+                text-shadow: 0 0 20px var(--neon-cyan), 0 0 30px var(--neon-cyan);
+            }
+        }
+
+        /* Media queries para diseño responsivo en dispositivos móviles */
+        @media (max-width: 768px) {
+            .glitch-text {
+                font-size: 3em;
+            }
+
+            .subtitle {
+                font-size: 1em;
+            }
+
+            .section-title {
+                font-size: 2.5em;
+            }
+
+            .guest-card {
+                width: 150px;
+            }
+
+            .guest-card img {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .carousel-text {
+                font-size: 0.9em;
+                padding: 8px 15px;
+            }
+
+            /* Ajuste para el espaciado del carrusel y los títulos */
+            .section {
+                padding: 40px 10px;
+            }
+
+            .carousel-button {
+                padding: 8px 12px;
+                font-size: 1.2em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        // No usaremos alert() para una mejor experiencia de usuario
+        window.addEventListener('load', function() {
+            const audio = document.getElementById('background-audio');
+            audio.volume = 0.3; // Volumen más bajo para no molestar
+            audio.play().catch(e => console.log('Autoplay de audio bloqueado:', e));
+        });
+    </script>
+
+    <audio id="background-audio" loop>
+        <source src="https://assets.mixkit.co/music/preview/mixkit-cyber-perreo-2708.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
+
+    <div class="parallax-bg"></div>
+
+    <header class="hero">
+        <div class="hero-content">
+            <h1 class="glitch-text" data-text="DJ FESTER">DJ FESTER</h1>
+            <p class="subtitle">Cyber-Perreo Neon</p>
+            <p class="cta-text">¡La noche que redefinirá el ritmo!</p>
+            <a href="#about" class="cta-button">SABER MÁS</a>
+        </div>
+    </header>
+
+    <main>
+        <section id="about" class="section">
+            <h2 class="section-title">Sobre DJ Fester</h2>
+            <div class="dj-info-container">
+                <img src="https://images.unsplash.com/photo-1549419163-f27357c91350?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="DJ Fester en vivo" class="dj-image">
+                <p class="dj-text">
+                    DJ Fester es un pionero en la fusión de ritmos latinos con la estética y el sonido del ciberpunk. Su show "Cyber-Perreo Neon" no es solo una fiesta, es una inmersión sensorial en un mundo futurista donde el reggaetón se encuentra con los sintetizadores de neón. Con mezclas únicas y una energía inigualable, Fester promete una experiencia inolvidable.
+                </p>
+            </div>
+        </section>
+        
+        <section id="guests" class="section special-guests">
+            <h2 class="section-title">Invitados Especiales</h2>
+            <div class="guest-container">
+                <div class="guest-card">
+                    <img src="https://images.unsplash.com/photo-1517441299955-442436f56c70?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="DJ Synthwave">
+                    <h3>DJ Synthwave</h3>
+                    <p>Maestro del sintetizador retro-futurista.</p>
+                </div>
+                <div class="guest-card">
+                    <img src="https://images.unsplash.com/photo-1520668041427-d46452292f76?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="MC Glitch">
+                    <h3>MC Glitch</h3>
+                    <p>Voces distorsionadas y ritmos crudos.</p>
+                </div>
+                <div class="guest-card">
+                    <img src="https://images.unsplash.com/photo-1516246816487-1111624e5251?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="VJ Aurora">
+                    <h3>VJ Aurora</h3>
+                    <p>Creando visuales hipnóticos en vivo.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="section">
+            <h2 class="section-title">Galería</h2>
+            <div class="carousel-container">
+                <div class="carousel-slide">
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1557675126-70e0f3178051?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="DJ en la consola">
+                        <span class="carousel-text">DJ en la Consola</span>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1543884879-8b846e45d944?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Consola de mezcla con luces de neón">
+                        <span class="carousel-text">Luces de Neón</span>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1549419163-f27357c91350?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Equipo de DJ con luces de neón">
+                        <span class="carousel-text">Equipo DJ</span>
+                    </div>
+                    <div class="carousel-item">
+                        <img src="https://images.unsplash.com/photo-1520668041427-d46452292f76?auto=format&fit=crop&q=80&w=1740&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Audífonos futuristas">
+                        <span class="carousel-text">Audífonos Futuristas</span>
+                    </div>
+                </div>
+                <button class="carousel-button prev-button" aria-label="Anterior">&#10094;</button>
+                <button class="carousel-button next-button" aria-label="Siguiente">&#10095;</button>
+            </div>
+        </section>
+        <section id="video" class="section">
+            <h2 class="section-title">Video Oficial</h2>
+            <div class="video-container">
+                <video controls>
+                    <source src="ssvid.net--Le-Doy-Dembow-Dj-Maniako-ft-Dj-
